@@ -1,5 +1,7 @@
 # agent-session-graph
 
+[![Tests](https://github.com/curvsort/agent-session-graph/actions/workflows/tests.yml/badge.svg)](https://github.com/curvsort/agent-session-graph/actions/workflows/tests.yml)
+
 **Reconstruct AI agent execution sessions from OpenTelemetry traces.**
 
 Most observability tools treat AI agent interactions as individual traces or spans. But multi-agent systems produce _sessions_ — long-running execution histories spanning multiple agents, tool calls, model invocations, and context transitions over extended periods.
