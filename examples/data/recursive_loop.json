@@ -1,0 +1,130 @@
+{
+  "session_id": "sess_recursive_loop_001",
+  "spans": [
+    {
+      "span_name": "session.start",
+      "start_time": "2026-07-16T15:00:00.000Z",
+      "attributes": {
+        "span_id": "span_001",
+        "tenant_id": "acme_corp",
+        "application_id": "buggy_orchestrator"
+      }
+    },
+    {
+      "span_name": "agent.start",
+      "start_time": "2026-07-16T15:00:00.100Z",
+      "attributes": {
+        "span_id": "span_002",
+        "parent_span_id": "span_001",
+        "agent_id": "agent_a"
+      }
+    },
+    {
+      "span_name": "agent.delegate",
+      "start_time": "2026-07-16T15:00:00.500Z",
+      "attributes": {
+        "span_id": "span_003",
+        "parent_span_id": "span_002",
+        "agent_id": "agent_a",
+        "delegated_to": "agent_b",
+        "reason": "needs_validation"
+      }
+    },
+    {
+      "span_name": "agent.start",
+      "start_time": "2026-07-16T15:00:00.520Z",
+      "attributes": {
+        "span_id": "span_004",
+        "parent_span_id": "span_003",
+        "agent_id": "agent_b"
+      }
+    },
+    {
+      "span_name": "agent.delegate",
+      "start_time": "2026-07-16T15:00:01.000Z",
+      "attributes": {
+        "span_id": "span_005",
+        "parent_span_id": "span_004",
+        "agent_id": "agent_b",
+        "delegated_to": "agent_a",
+        "reason": "needs_reprocessing"
+      }
+    },
+    {
+      "span_name": "agent.delegate",
+      "start_time": "2026-07-16T15:00:01.500Z",
+      "attributes": {
+        "span_id": "span_006",
+        "parent_span_id": "span_002",
+        "agent_id": "agent_a",
+        "delegated_to": "agent_b",
+        "reason": "needs_validation"
+      }
+    },
+    {
+      "span_name": "agent.delegate",
+      "start_time": "2026-07-16T15:00:02.000Z",
+      "attributes": {
+        "span_id": "span_007",
+        "parent_span_id": "span_004",
+        "agent_id": "agent_b",
+        "delegated_to": "agent_a",
+        "reason": "needs_reprocessing"
+      }
+    },
+    {
+      "span_name": "agent.delegate",
+      "start_time": "2026-07-16T15:00:02.500Z",
+      "attributes": {
+        "span_id": "span_008",
+        "parent_span_id": "span_002",
+        "agent_id": "agent_a",
+        "delegated_to": "agent_b",
+        "reason": "needs_validation"
+      }
+    },
+    {
+      "span_name": "agent.delegate",
+      "start_time": "2026-07-16T15:00:03.000Z",
+      "attributes": {
+        "span_id": "span_009",
+        "parent_span_id": "span_004",
+        "agent_id": "agent_b",
+        "delegated_to": "agent_a",
+        "reason": "needs_reprocessing"
+      }
+    },
+    {
+      "span_name": "agent.delegate",
+      "start_time": "2026-07-16T15:00:03.500Z",
+      "attributes": {
+        "span_id": "span_010",
+        "parent_span_id": "span_002",
+        "agent_id": "agent_a",
+        "delegated_to": "agent_b",
+        "reason": "needs_validation"
+      }
+    },
+    {
+      "span_name": "agent.delegate",
+      "start_time": "2026-07-16T15:00:04.000Z",
+      "attributes": {
+        "span_id": "span_011",
+        "parent_span_id": "span_004",
+        "agent_id": "agent_b",
+        "delegated_to": "agent_a",
+        "reason": "needs_reprocessing"
+      }
+    },
+    {
+      "span_name": "session.end",
+      "start_time": "2026-07-16T15:00:05.000Z",
+      "attributes": {
+        "span_id": "span_012",
+        "parent_span_id": "span_001",
+        "status": "terminated",
+        "termination_reason": "max_recursion_depth_exceeded"
+      }
+    }
+  ]
+}

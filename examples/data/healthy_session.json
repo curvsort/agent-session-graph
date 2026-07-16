@@ -1,0 +1,120 @@
+{
+  "session_id": "sess_healthy_001",
+  "spans": [
+    {
+      "span_name": "session.start",
+      "start_time": "2026-07-16T14:30:00.000Z",
+      "attributes": {
+        "span_id": "span_001",
+        "tenant_id": "acme_corp",
+        "application_id": "research_assistant",
+        "objective": "Research latest AI developments"
+      }
+    },
+    {
+      "span_name": "agent.start",
+      "start_time": "2026-07-16T14:30:00.120Z",
+      "attributes": {
+        "span_id": "span_002",
+        "parent_span_id": "span_001",
+        "agent_id": "orchestrator",
+        "agent_type": "coordinator"
+      }
+    },
+    {
+      "span_name": "model.call",
+      "start_time": "2026-07-16T14:30:00.250Z",
+      "attributes": {
+        "span_id": "span_003",
+        "parent_span_id": "span_002",
+        "agent_id": "orchestrator",
+        "model": "claude-3.5-sonnet",
+        "input_tokens": 1200,
+        "output_tokens": 180
+      }
+    },
+    {
+      "span_name": "agent.delegate",
+      "start_time": "2026-07-16T14:30:01.500Z",
+      "attributes": {
+        "span_id": "span_004",
+        "parent_span_id": "span_002",
+        "agent_id": "orchestrator",
+        "delegated_to": "researcher"
+      }
+    },
+    {
+      "span_name": "agent.start",
+      "start_time": "2026-07-16T14:30:01.520Z",
+      "attributes": {
+        "span_id": "span_005",
+        "parent_span_id": "span_004",
+        "agent_id": "researcher",
+        "agent_type": "specialist"
+      }
+    },
+    {
+      "span_name": "tool.call",
+      "start_time": "2026-07-16T14:30:01.800Z",
+      "attributes": {
+        "span_id": "span_006",
+        "parent_span_id": "span_005",
+        "agent_id": "researcher",
+        "tool_name": "web_search",
+        "query": "latest AI research papers 2026"
+      }
+    },
+    {
+      "span_name": "tool.result",
+      "start_time": "2026-07-16T14:30:03.200Z",
+      "attributes": {
+        "span_id": "span_007",
+        "parent_span_id": "span_006",
+        "agent_id": "researcher",
+        "status": "success",
+        "results_count": 15
+      }
+    },
+    {
+      "span_name": "model.call",
+      "start_time": "2026-07-16T14:30:03.500Z",
+      "attributes": {
+        "span_id": "span_008",
+        "parent_span_id": "span_005",
+        "agent_id": "researcher",
+        "model": "claude-3.5-sonnet",
+        "input_tokens": 3500,
+        "output_tokens": 450
+      }
+    },
+    {
+      "span_name": "agent.end",
+      "start_time": "2026-07-16T14:30:05.000Z",
+      "attributes": {
+        "span_id": "span_009",
+        "parent_span_id": "span_004",
+        "agent_id": "researcher",
+        "status": "success"
+      }
+    },
+    {
+      "span_name": "agent.end",
+      "start_time": "2026-07-16T14:30:05.200Z",
+      "attributes": {
+        "span_id": "span_010",
+        "parent_span_id": "span_001",
+        "agent_id": "orchestrator",
+        "status": "success"
+      }
+    },
+    {
+      "span_name": "session.end",
+      "start_time": "2026-07-16T14:30:05.300Z",
+      "attributes": {
+        "span_id": "span_011",
+        "parent_span_id": "span_001",
+        "status": "completed"
+      }
+    }
+  ]
+}

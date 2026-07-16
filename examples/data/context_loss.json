@@ -1,0 +1,172 @@
+{
+  "session_id": "sess_context_loss_001",
+  "spans": [
+    {
+      "span_name": "session.start",
+      "start_time": "2026-07-16T17:00:00.000Z",
+      "attributes": {
+        "span_id": "span_001",
+        "tenant_id": "acme_corp",
+        "application_id": "customer_support",
+        "context_version_id": "ctx_v1"
+      }
+    },
+    {
+      "span_name": "agent.start",
+      "start_time": "2026-07-16T17:00:00.100Z",
+      "attributes": {
+        "span_id": "span_002",
+        "parent_span_id": "span_001",
+        "agent_id": "support_agent",
+        "context_version_id": "ctx_v1"
+      }
+    },
+    {
+      "span_name": "model.call",
+      "start_time": "2026-07-16T17:00:00.500Z",
+      "attributes": {
+        "span_id": "span_003",
+        "parent_span_id": "span_002",
+        "agent_id": "support_agent",
+        "model": "claude-3.5-sonnet",
+        "input_tokens": 2500,
+        "output_tokens": 320,
+        "context_version_id": "ctx_v1",
+        "turn": 1
+      }
+    },
+    {
+      "span_name": "model.call",
+      "start_time": "2026-07-16T17:00:05.000Z",
+      "attributes": {
+        "span_id": "span_004",
+        "parent_span_id": "span_002",
+        "agent_id": "support_agent",
+        "model": "claude-3.5-sonnet",
+        "input_tokens": 4800,
+        "output_tokens": 420,
+        "context_version_id": "ctx_v1",
+        "turn": 2
+      }
+    },
+    {
+      "span_name": "model.call",
+      "start_time": "2026-07-16T17:00:10.000Z",
+      "attributes": {
+        "span_id": "span_005",
+        "parent_span_id": "span_002",
+        "agent_id": "support_agent",
+        "model": "claude-3.5-sonnet",
+        "input_tokens": 8200,
+        "output_tokens": 550,
+        "context_version_id": "ctx_v1",
+        "turn": 3
+      }
+    },
+    {
+      "span_name": "model.call",
+      "start_time": "2026-07-16T17:00:15.000Z",
+      "attributes": {
+        "span_id": "span_006",
+        "parent_span_id": "span_002",
+        "agent_id": "support_agent",
+        "model": "claude-3.5-sonnet",
+        "input_tokens": 15000,
+        "output_tokens": 680,
+        "context_version_id": "ctx_v1",
+        "turn": 4
+      }
+    },
+    {
+      "span_name": "model.call",
+      "start_time": "2026-07-16T17:00:20.000Z",
+      "attributes": {
+        "span_id": "span_007",
+        "parent_span_id": "span_002",
+        "agent_id": "support_agent",
+        "model": "claude-3.5-sonnet",
+        "input_tokens": 28000,
+        "output_tokens": 850,
+        "context_version_id": "ctx_v1",
+        "turn": 5
+      }
+    },
+    {
+      "span_name": "context.compaction",
+      "start_time": "2026-07-16T17:00:25.000Z",
+      "attributes": {
+        "span_id": "span_008",
+        "parent_span_id": "span_002",
+        "agent_id": "support_agent",
+        "before_tokens": 28000,
+        "after_tokens": 8500,
+        "compaction_ratio": 0.70,
+        "old_context_version_id": "ctx_v1",
+        "new_context_version_id": "ctx_v2",
+        "instructions_removed": [
+          "Never approve refunds over $500 without manager approval",
+          "Always verify customer identity before discussing account details"
+        ]
+      }
+    },
+    {
+      "span_name": "model.call",
+      "start_time": "2026-07-16T17:00:26.000Z",
+      "attributes": {
+        "span_id": "span_009",
+        "parent_span_id": "span_002",
+        "agent_id": "support_agent",
+        "model": "claude-3.5-sonnet",
+        "input_tokens": 8500,
+        "output_tokens": 320,
+        "context_version_id": "ctx_v2",
+        "turn": 6
+      }
+    },
+    {
+      "span_name": "tool.call",
+      "start_time": "2026-07-16T17:00:27.000Z",
+      "attributes": {
+        "span_id": "span_010",
+        "parent_span_id": "span_002",
+        "agent_id": "support_agent",
+        "tool_name": "approve_refund",
+        "amount_usd": 1200,
+        "context_version_id": "ctx_v2"
+      }
+    },
+    {
+      "span_name": "tool.result",
+      "start_time": "2026-07-16T17:00:27.500Z",
+      "attributes": {
+        "span_id": "span_011",
+        "parent_span_id": "span_010",
+        "agent_id": "support_agent",
+        "status": "success",
+        "refund_approved": true
+      }
+    },
+    {
+      "span_name": "policy.violation",
+      "start_time": "2026-07-16T17:00:28.000Z",
+      "attributes": {
+        "span_id": "span_012",
+        "parent_span_id": "span_010",
+        "agent_id": "support_agent",
+        "policy": "refund_approval_limit",
+        "violation": "Approved $1200 refund without manager approval (limit: $500)",
+        "context_version_id": "ctx_v2",
+        "severity": "high"
+      }
+    },
+    {
+      "span_name": "session.end",
+      "start_time": "2026-07-16T17:00:30.000Z",
+      "attributes": {
+        "span_id": "span_013",
+        "parent_span_id": "span_001",
+        "status": "completed_with_violations"
+      }
+    }
+  ]
+}
