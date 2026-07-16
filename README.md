@@ -218,4 +218,3 @@ Apache 2.0
 
 - [LexiLensAI](https://www.curvsort.com/lexilensai) — Full runtime intelligence platform
 - [CurvSort](https://www.curvsort.com) — Company behind this project
-- [Why Sessions, Not Traces](https://curvsort.com/blog/sessions-not-traces) — Technical deep-dive (← link to your blog post)
