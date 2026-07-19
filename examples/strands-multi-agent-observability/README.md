@@ -74,18 +74,19 @@ cd agent-session-graph/examples/strands-multi-agent-observability
 jupyter notebook agent-as-tools-lexilens.ipynb
 ```
 
-Configure AWS credentials (`aws configure` or env vars) and update the model ID in the notebook if needed.
+**AWS Configuration:**
+- Configure credentials: `aws configure` or set `AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY` env vars
+- The notebook uses model ID `global.anthropic.claude-sonnet-4-5-20250929-v1:0`
+- If your Bedrock setup uses a different region prefix (e.g. `us.anthropic...` or `eu.anthropic...`), update the `model=` parameter in the notebook cells
 
 ## Files
 
-+---------------------------------------+-----------------------------------------------+
-| File                                  | Purpose                                       |
-+---------------------------------------+-----------------------------------------------+
-| `agent-as-tools-lexilens.ipynb`       | Full demo with outputs (view without running) |
-| `agent-as-tools-lexilens-clean.ipynb` | Clean version to run yourself                 |
-| `session_graph.png`                   | Visualization output                          |
-| `requirements.txt`                    | Python dependencies                           |
-+---------------------------------------+-----------------------------------------------+
+| File | Purpose |
+|------|---------|
+| `agent-as-tools-lexilens.ipynb` | Full demo with outputs (view without running) |
+| `agent-as-tools-lexilens-clean.ipynb` | Clean version to run yourself |
+| `session_graph.png` | Visualization output |
+| `requirements.txt` | Python dependencies |
 
 ## Links
 
