@@ -10,6 +10,16 @@ Most observability tools treat AI agent interactions as individual traces or spa
 
 ---
 
+## Featured Example
+
+**[Multi-Agent Observability Demo](examples/strands-multi-agent-observability/)** — Session-level failures in multi-agent systems that span-level tracing misses. Includes working notebook comparing manual vs auto-instrumentation, session graph visualization, and anomaly detection.
+
+[![Session Graph](examples/strands-multi-agent-observability/session_graph.png)](examples/strands-multi-agent-observability/)
+
+**Key insight:** Traditional tracing shows "all spans green" even when the session is failing operationally (retry storms, context drift, token explosion).
+
+---
+
 ## The Problem
 
 You're running multi-agent systems (Claude Agent SDK, LangChain, AutoGen, custom orchestration) on AWS Bedrock or similar infrastructure. You've instrumented with OpenTelemetry. You can see individual spans.
