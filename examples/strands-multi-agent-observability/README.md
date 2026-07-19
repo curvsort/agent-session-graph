@@ -55,12 +55,12 @@ This demo is part of the **LexiLensAI observability stack** for multi-agent AI s
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  Your Multi-Agent Application (Strands, LangChain, etc.)   │
+│  Your Multi-Agent Application (Strands, LangChain, etc.)    │
 └──────────────────────┬──────────────────────────────────────┘
                        │
                        ↓
         ┌──────────────────────────────┐
-        │   LexiLens SDK (Part 2)      │  ← This notebook demonstrates
+        │   LexiLens SDK               │  ← This notebook demonstrates
         │   Auto-instrumentation       │
         │   • Patches Agent.__call__   │
         │   • Captures spans           │
@@ -107,7 +107,7 @@ This demo is part of the **LexiLensAI observability stack** for multi-agent AI s
 
 ### What the Library Does
 
-The [`agent-session-graph` library](../..) (repo root) is a **post-processing tool**. It takes traces that already exist (from LexiLens SDK, Langfuse, Datadog, your own OTel collector) and reconstructs them into:
+The [`agent-session-graph` library](../../) (repo root) is a **post-processing tool**. It takes traces that already exist (from LexiLens SDK, Langfuse, Datadog, your own OTel collector) and reconstructs them into:
 - Full session execution graphs
 - Delegation chain visualizations
 - Timeline replays showing which agent called which, when, and with what context
