@@ -47,6 +47,125 @@ ANOMALIES DETECTED: 3
   [HIGH] retry_storm: Agent called 5x in <60s with similar input
 ```
 
+## Architecture: How This Fits Together
+
+This demo is part of the **LexiLensAI observability stack** for multi-agent AI systems. Here's how the pieces fit:
+
+### Component Overview
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  Your Multi-Agent Application (Strands, LangChain, etc.)   │
+└──────────────────────┬──────────────────────────────────────┘
+                       │
+                       ↓
+        ┌──────────────────────────────┐
+        │   LexiLens SDK (Part 2)      │  ← This notebook demonstrates
+        │   Auto-instrumentation       │
+        │   • Patches Agent.__call__   │
+        │   • Captures spans           │
+        │   • Tracks session context   │
+        └──────────────┬───────────────┘
+                       │
+                       ↓
+        ┌──────────────────────────────┐
+        │   Trace Output (JSONL/OTel)  │
+        │   • trace_id, span_id        │
+        │   • parent relationships     │
+        │   • session_id, timestamps   │
+        │   • token counts, metadata   │
+        └──────────────┬───────────────┘
+                       │
+                       ↓
+        ┌──────────────────────────────┐
+        │  agent-session-graph library │  ← Open-source library
+        │  Post-processing & Analysis  │     (repo root)
+        │  • Reconstructs sessions     │
+        │  • Builds delegation graphs  │
+        │  • Detects anomalies         │
+        └──────────────┬───────────────┘
+                       │
+                       ↓
+        ┌──────────────────────────────┐
+        │   Observability Outputs      │
+        │   • Session graphs           │
+        │   • Execution timelines      │
+        │   • Anomaly alerts           │
+        │   • Cost attribution         │
+        └──────────────────────────────┘
+```
+
+### What This Notebook Shows
+
+**Part 1:** The baseline — manual `emit_span()` calls everywhere. Shows the pain of instrumenting agents by hand.
+
+**Part 2:** The LexiLens SDK approach — one `LexiLens.init()` call that auto-patches the agent framework. Generates session-aware traces with:
+- Automatic parent-child span relationships via call stack tracking
+- Session-level context (not just span-level)
+- Token accounting per agent
+- Built-in anomaly detection (retry storms, token explosion)
+
+### What the Library Does
+
+The [`agent-session-graph` library](../..) (repo root) is a **post-processing tool**. It takes traces that already exist (from LexiLens SDK, Langfuse, Datadog, your own OTel collector) and reconstructs them into:
+- Full session execution graphs
+- Delegation chain visualizations
+- Timeline replays showing which agent called which, when, and with what context
+
+### The Missing Piece: Production LexiLensAI
+
+The **production LexiLensAI platform** (not open-source) combines both:
+- Real-time ingestion of session traces
+- Advanced anomaly detection (context drift, governance violations, instruction decay)
+- Multi-session analysis and trending
+- Integration with alerting/incident management
+
+**This notebook** is a proof-of-concept for the instrumentation layer.  
+**The library** is a building block for the analysis layer.  
+**LexiLensAI** is the full production platform.
+
+### Data Flow Example
+
+```python
+# 1. Your agent code (unchanged)
+@tool
+def research_assistant(query: str) -> str:
+    agent = Agent(model="...", system_prompt="...")
+    return str(agent(query))
+
+# 2. SDK captures automatically (via monkey-patch)
+#    → generates span with session_id, parent_span_id, tokens, timing
+
+# 3. Trace written to JSONL or OTel collector
+#    {
+#      "trace_id": "abc123",
+#      "span_id": "def456",
+#      "session_id": "session_001",
+#      "agent_name": "research_agent",
+#      "parent_span_id": "orchestrator_span",
+#      "token_input": 234,
+#      "token_output": 567
+#    }
+
+# 4. Library reconstructs the session
+from agent_session_graph import SessionReconstructor
+reconstructor = SessionReconstructor()
+session = reconstructor.from_jsonl("traces.jsonl")
+session.visualize()  # → session graph with delegation chains
+```
+
+### Why Two Layers?
+
+**Instrumentation (SDK):** Must be lightweight, framework-specific, zero-config. Different for Strands vs LangChain vs custom agents.
+
+**Analysis (library):** Framework-agnostic. Works on any OTel-compatible traces. Can be extended, customized, integrated into your existing observability stack.
+
+Separating them means:
+- You can swap instrumentation methods without changing analysis
+- The library works with traces from any source (not just our SDK)
+- Each layer can evolve independently
+
+
 ### Integration
 
 ```python
