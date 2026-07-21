@@ -66,3 +66,6 @@ htmlcov/
 
 # Distribution
 *.whl
+
+# Jupyter
+.ipynb_checkpoints/

@@ -27,10 +27,19 @@ jobs:
       - name: Install package and test dependencies
         run: |
           pip install -e .
-          pip install pytest
+          pip install pytest pytest-cov ruff mypy
 
-      - name: Run tests
-        run: pytest -v --tb=short
+      - name: Lint (ruff)
+        run: |
+          ruff check src/ tests/
+
+      - name: Type check (mypy)
+        run: |
+          mypy src/agent_session_graph/ --ignore-missing-imports
+
+      - name: Run tests with coverage
+        run: |
+          pytest -v --cov=agent_session_graph --cov-report=term-missing --cov-fail-under=80
 
       - name: Upload test results
         if: always()
