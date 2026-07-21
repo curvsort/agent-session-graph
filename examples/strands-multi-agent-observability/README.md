@@ -28,7 +28,10 @@ LexiLensAI treats the **session** as the primary unit of observability, not the 
 This notebook instruments an [AWS Strands Agents](https://github.com/strands-agents/samples) multi-agent system (orchestrator + specialist agents) and demonstrates:
 
 1. **Part 1:** The manual approach — ~65 lines of `emit_span()` boilerplate per tool, producing flat traces with no session awareness
-2. **Part 2:** LexiLensAI auto-instrumentation — one `LexiLens.init()` call, zero code changes to agents, full session graph + anomaly detection
+2. **Part 2:** Strands built-in telemetry — what automatic OTel instrumentation gives you (span-level only)
+3. **Part 3:** LexiLensAI session intelligence — one `LexiLens.init()` call, zero code changes to agents, full session graph + anomaly detection
+
+> **Note:** The notebooks contain an **inline prototype** of the LexiLens SDK for educational purposes. The production client SDK will be published separately at [github.com/curvsort/lexilensai-sdk](https://github.com/curvsort/lexilensai-sdk).
 
 ### Session Graph Output
 
@@ -99,11 +102,15 @@ This demo is part of the **LexiLensAI observability stack** for multi-agent AI s
 
 **Part 1:** The baseline — manual `emit_span()` calls everywhere. Shows the pain of instrumenting agents by hand.
 
-**Part 2:** The LexiLens SDK approach — one `LexiLens.init()` call that auto-patches the agent framework. Generates session-aware traces with:
+**Part 2:** Strands built-in telemetry — automatic span-level tracing with zero boilerplate, but no session awareness.
+
+**Part 3:** The LexiLens SDK prototype (demo-only) — one `LexiLens.init()` call that auto-patches the agent framework. Generates session-aware traces with:
 - Automatic parent-child span relationships via call stack tracking
 - Session-level context (not just span-level)
 - Token accounting per agent
 - Built-in anomaly detection (retry storms, token explosion)
+
+**For production use**, see the upcoming `lexilensai-sdk` package instead of the inline prototype.
 
 ### What the Library Does
 
