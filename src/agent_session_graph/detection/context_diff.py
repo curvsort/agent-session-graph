@@ -45,7 +45,8 @@ Example usage:
 """
 import hashlib
 from datetime import datetime, timezone
-from agent_session_graph.schemas.context_version import ContextVersion, ContextDiff
+
+from agent_session_graph.schemas.context_version import ContextDiff, ContextVersion
 from agent_session_graph.schemas.finding import Finding
 
 
@@ -206,7 +207,8 @@ class ContextDiffEngine:
                 for ref in cv.diff.removed_instruction_refs
             ]
 
-            finding_id = f"find_{cv.context_version_id}_{int(datetime.now(timezone.utc).timestamp() * 1000)}"
+            ts_ms = int(datetime.now(timezone.utc).timestamp() * 1000)
+            finding_id = f"find_{cv.context_version_id}_{ts_ms}"
 
             finding = Finding(
                 finding_id=finding_id,
@@ -215,7 +217,10 @@ class ContextDiffEngine:
                 finding_type="critical_instruction_loss",
                 severity="high",
                 triggering_event_ids=[cv.context_version_id],
-                root_cause_summary=f"Lost {len(removed_texts)} instruction(s): {', '.join(removed_texts)}",
+                root_cause_summary=(
+                    f"Lost {len(removed_texts)} instruction(s): "
+                    f"{', '.join(removed_texts)}"
+                ),
                 context_diff_ref=cv.diff_ref,
                 detected_at=datetime.now(timezone.utc),
             )

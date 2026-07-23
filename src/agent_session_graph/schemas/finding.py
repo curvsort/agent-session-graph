@@ -4,9 +4,10 @@ Finding — output of anomaly detection and governance checks.
 Represents a detected issue or insight from analysis:
 anomaly detection, governance violations, cost warnings, etc.
 """
-from pydantic import BaseModel, Field
 from datetime import datetime
-from typing import Optional, Literal
+from typing import Literal, Optional
+
+from pydantic import BaseModel, Field
 
 
 class Finding(BaseModel):

@@ -1,9 +1,8 @@
 """
 Test SessionBuilder session reconstruction logic.
 """
-import pytest
-from agent_session_graph.session import SessionBuilder
 from agent_session_graph.schemas import EventType
+from agent_session_graph.session import SessionBuilder
 
 
 def test_session_initialization(storage, sample_events):
@@ -22,8 +21,9 @@ def test_session_initialization(storage, sample_events):
 
 def test_sequence_gap_detection(storage, sample_session_id):
     """Test SessionBuilder detects sequence gaps."""
-    from agent_session_graph.schemas import SessionEvent
     from datetime import datetime, timezone
+
+    from agent_session_graph.schemas import SessionEvent
 
     builder = SessionBuilder(storage=storage)
 

@@ -8,13 +8,10 @@ Tests complete workflows with realistic multi-agent session patterns:
 - Cost attribution accuracy
 - Replay functionality
 """
-import pytest
-from datetime import datetime, timezone
 from agent_session_graph import SessionReconstructor
-from agent_session_graph.storage import InMemoryStorage
 from agent_session_graph.detection import AnomalyDetector
-from agent_session_graph.replay import replay_session_to
 from agent_session_graph.schemas import EventType
+from agent_session_graph.storage import InMemoryStorage
 
 
 def test_full_pipeline_complex_delegation_chain():
@@ -192,7 +189,10 @@ def test_full_pipeline_with_context_operations():
     session = reconstructor.from_otlp_spans(spans, session_id="explicit-compaction")
 
     # Verify compaction event captured
-    compaction_events = [e for e in session.timeline if e.event_type == EventType.CONTEXT_COMPACTION]
+    compaction_events = [
+        e for e in session.timeline
+        if e.event_type == EventType.CONTEXT_COMPACTION
+    ]
     assert len(compaction_events) == 1
 
     # Run detector - should NOT flag as "probable" since explicit event exists

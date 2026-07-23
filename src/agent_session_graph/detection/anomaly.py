@@ -22,13 +22,12 @@ Example usage:
     for finding in findings:
         storage.write_finding(finding)
 """
-from datetime import datetime, timezone
-from typing import Optional
 import hashlib
+from datetime import datetime, timezone
 
-from agent_session_graph.schemas.session_event import SessionEvent, EventType
 from agent_session_graph.schemas.execution_edge import ExecutionEdge
 from agent_session_graph.schemas.finding import Finding
+from agent_session_graph.schemas.session_event import EventType, SessionEvent
 
 
 class AnomalyDetector:
@@ -332,12 +331,19 @@ class AnomalyDetector:
                         severity="medium",
                         triggering_event_ids=[prev["event_id"], curr["event_id"]],
                         root_cause_summary=(
-                            f"Probable context compaction inferred: token count dropped {drop_percentage}% "
-                            f"from {prev['tokens']:,} to {curr['tokens']:,} tokens between seq={prev['seq']} "
-                            f"and seq={curr['seq']} without an explicit CONTEXT_COMPACTION event. "
-                            f"This suggests the agent framework performed context compression internally "
-                            f"without emitting telemetry. For higher-confidence detection, instrument "
-                            f"the harness to emit CONTEXT_COMPACTION spans."
+                            f"Probable context compaction inferred: "
+                            f"token count dropped {drop_percentage}% "
+                            f"from {prev['tokens']:,} to "
+                            f"{curr['tokens']:,} tokens between "
+                            f"seq={prev['seq']} "
+                            f"and seq={curr['seq']} without an explicit "
+                            f"CONTEXT_COMPACTION event. "
+                            f"This suggests the agent framework performed "
+                            f"context compression internally "
+                            f"without emitting telemetry. For "
+                            f"higher-confidence detection, instrument "
+                            f"the harness to emit "
+                            f"CONTEXT_COMPACTION spans."
                         ),
                         detected_at=datetime.now(timezone.utc),
                         status="open"

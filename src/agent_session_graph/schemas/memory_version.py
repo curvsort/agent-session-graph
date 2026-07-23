@@ -4,8 +4,9 @@ MemoryVersion — tracking of agent memory state mutations.
 Records when a memory key changed, what it changed from/to,
 and staleness metrics (time since last read).
 """
-from pydantic import BaseModel
 from typing import Optional
+
+from pydantic import BaseModel
 
 
 class MemoryVersion(BaseModel):

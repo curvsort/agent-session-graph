@@ -35,29 +35,22 @@ See examples/ directory for complete usage patterns.
 
 __version__ = "0.1.0"
 
-# High-level API (recommended for most users)
-from agent_session_graph.session_reconstructor import SessionReconstructor, Session
-
-# Core primitives (for advanced usage)
-from agent_session_graph.session import SessionBuilder
+from agent_session_graph.detection import AnomalyDetector, ContextDiffEngine
 from agent_session_graph.graph import GraphBuilder
 from agent_session_graph.ingestion import normalize_span, normalize_trace
-from agent_session_graph.storage import StorageBackend, NullStorage, InMemoryStorage
-
-# Schemas
+from agent_session_graph.replay import SessionState, replay_session_to
 from agent_session_graph.schemas import (
-    SessionEvent,
+    ContextVersion,
     EventType,
-    SessionMetadata,
     ExecutionEdge,
     Finding,
-    ContextVersion,
     MemoryVersion,
+    SessionEvent,
+    SessionMetadata,
 )
-
-# Reference implementations (optional - build your own on the primitives)
-from agent_session_graph.detection import AnomalyDetector, ContextDiffEngine
-from agent_session_graph.replay import replay_session_to, SessionState
+from agent_session_graph.session import SessionBuilder
+from agent_session_graph.session_reconstructor import Session, SessionReconstructor
+from agent_session_graph.storage import InMemoryStorage, NullStorage, StorageBackend
 
 __all__ = [
     # Version

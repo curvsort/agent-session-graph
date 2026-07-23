@@ -4,11 +4,9 @@ OTel span normalization to SessionEvent schema.
 Maps vendor-specific span patterns to the 24-type EventType taxonomy.
 Works with any OTel-instrumented multi-agent system.
 """
-import json
 from datetime import datetime
-from typing import Any
 
-from agent_session_graph.schemas import SessionEvent, EventType
+from agent_session_graph.schemas import EventType, SessionEvent
 
 
 def normalize_span(span: dict, session_id: str, seq: int) -> SessionEvent:
@@ -116,7 +114,8 @@ def _infer_event_type(span_name: str) -> EventType:
             return EventType.MODEL_CALL
 
     # Tool operations
-    if any(term in span_lower for term in ["tool", "websearch", "web_search", "search", "api_call"]):
+    tool_terms = ["tool", "websearch", "web_search", "search", "api_call"]
+    if any(term in span_lower for term in tool_terms):
         if "error" in span_lower:
             return EventType.TOOL_ERROR
         elif any(term in span_lower for term in ["result", "response", "completion"]):

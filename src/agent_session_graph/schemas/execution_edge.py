@@ -5,8 +5,9 @@ Edges answer "why did X happen?" by pointing to the cause.
 Forms the execution graph that traces lineage through agent delegations,
 tool invocations, memory reads, and causal relationships.
 """
-from pydantic import BaseModel
 from typing import Literal
+
+from pydantic import BaseModel
 
 
 class ExecutionEdge(BaseModel):

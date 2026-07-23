@@ -6,7 +6,6 @@ Tests the actual detection logic with realistic patterns:
 - Token explosions
 - Context compaction inference
 """
-import pytest
 from agent_session_graph import SessionReconstructor
 from agent_session_graph.detection import AnomalyDetector
 from agent_session_graph.storage import InMemoryStorage

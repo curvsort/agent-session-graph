@@ -7,9 +7,7 @@ Tests the ContextDiffEngine reference implementation for:
 - Instruction loss detection during context compaction
 - Tool set changes tracking
 """
-import pytest
 from agent_session_graph.detection import ContextDiffEngine
-from agent_session_graph.schemas import ContextVersion
 
 
 def test_build_context_version_initial():

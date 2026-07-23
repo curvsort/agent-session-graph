@@ -4,9 +4,10 @@ SessionMetadata schema — aggregate state for a multi-agent session.
 Tracks runtime state: participants, token usage, cost, data integrity,
 and finding summaries.
 """
-from pydantic import BaseModel, Field
 from datetime import datetime
-from typing import Optional, Literal
+from typing import Literal, Optional
+
+from pydantic import BaseModel, Field
 
 
 class IngestionSource(BaseModel):

@@ -4,10 +4,11 @@ Core SessionEvent schema — the atomic unit of session reconstruction.
 Every event in a multi-agent session (from OTel spans or native logs)
 is normalized into this shape before processing.
 """
-from pydantic import BaseModel, Field, ConfigDict
 from datetime import datetime
-from typing import Optional, Any
 from enum import Enum
+from typing import Any, Optional
+
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class EventType(str, Enum):

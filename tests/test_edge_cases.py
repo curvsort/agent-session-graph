@@ -3,8 +3,10 @@ Edge case tests - error handling and boundary conditions.
 
 Tests unusual inputs, missing data, malformed data, and error recovery.
 """
-import pytest
 from datetime import datetime
+
+import pytest
+
 from agent_session_graph import SessionReconstructor
 from agent_session_graph.ingestion import normalize_span, normalize_trace
 

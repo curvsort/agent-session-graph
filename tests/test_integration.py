@@ -4,7 +4,6 @@ Integration tests - full pipeline end-to-end.
 Tests the complete workflow: OTel spans → normalization → session building →
 graph inference → detection → query interface.
 """
-import pytest
 from agent_session_graph import SessionReconstructor
 from agent_session_graph.schemas import EventType
 

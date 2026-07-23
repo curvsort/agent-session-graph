@@ -22,19 +22,19 @@ Usage:
     print(session.cost_attribution)
 """
 import json
-from typing import Any, Iterator
-from pathlib import Path
 from collections import defaultdict
+from pathlib import Path
+from typing import Any, Iterator
 
-from agent_session_graph.session import SessionBuilder
 from agent_session_graph.graph import GraphBuilder
 from agent_session_graph.ingestion import normalize_trace
-from agent_session_graph.storage import StorageBackend, InMemoryStorage
 from agent_session_graph.schemas import (
+    ExecutionEdge,
     SessionEvent,
     SessionMetadata,
-    ExecutionEdge,
 )
+from agent_session_graph.session import SessionBuilder
+from agent_session_graph.storage import InMemoryStorage, StorageBackend
 
 
 class Session:
@@ -160,8 +160,10 @@ class Session:
         Example:
             >>> session.tool_lifecycle
             [
-                {'tool_name': 'web_search', 'status': 'success', 'duration_ms': 1234, 'agent': 'researcher'},
-                {'tool_name': 'code_exec', 'status': 'error', 'duration_ms': 567, 'agent': 'coder'}
+                {'tool_name': 'web_search', 'status': 'success',
+                 'duration_ms': 1234, 'agent': 'researcher'},
+                {'tool_name': 'code_exec', 'status': 'error',
+                 'duration_ms': 567, 'agent': 'coder'}
             ]
         """
         tools = []
@@ -185,7 +187,10 @@ class Session:
 
                 if result_event:
                     status = "success" if result_event.event_type == "TOOL_RESULT" else "error"
-                    duration_ms = int((result_event.timestamp - tool_call["start_time"]).total_seconds() * 1000)
+                    duration_ms = int(
+                        (result_event.timestamp - tool_call["start_time"])
+                        .total_seconds() * 1000
+                    )
 
                     tools.append({
                         "tool_name": tool_call["tool_name"],

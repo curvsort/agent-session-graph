@@ -6,8 +6,8 @@ inference rules to detect patterns in event sequences.
 """
 import hashlib
 
-from agent_session_graph.schemas import SessionEvent, EventType, ExecutionEdge
-from agent_session_graph.storage import StorageBackend, NullStorage
+from agent_session_graph.schemas import EventType, ExecutionEdge, SessionEvent
+from agent_session_graph.storage import NullStorage, StorageBackend
 
 
 class GraphBuilder:

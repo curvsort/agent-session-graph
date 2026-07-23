@@ -6,20 +6,22 @@ Tests the storage protocol implementations:
 - InMemoryStorage (dict-backed)
 - StorageBackend protocol compliance
 """
+from datetime import datetime, timezone
+
 import pytest
-from agent_session_graph.storage import NullStorage, InMemoryStorage, StorageBackend
+
 from agent_session_graph.schemas import (
-    SessionEvent,
-    SessionMetadata,
+    DataIntegrity,
+    EventType,
     ExecutionEdge,
     Finding,
-    EventType,
+    FindingSummary,
     IngestionSource,
+    SessionEvent,
+    SessionMetadata,
     TokenUsage,
-    DataIntegrity,
-    FindingSummary
 )
-from datetime import datetime, timezone
+from agent_session_graph.storage import InMemoryStorage, NullStorage, StorageBackend
 
 
 @pytest.fixture

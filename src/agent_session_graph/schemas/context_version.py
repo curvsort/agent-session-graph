@@ -5,9 +5,10 @@ Tracks changes to agent context (instructions, tools, memory) using diffs
 rather than full snapshots. Enables detection of instruction loss,
 context compaction issues, and governance violations.
 """
-from pydantic import BaseModel, Field
 from datetime import datetime
 from typing import Optional
+
+from pydantic import BaseModel, Field
 
 
 class ContextDiff(BaseModel):

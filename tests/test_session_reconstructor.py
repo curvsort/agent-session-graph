@@ -1,11 +1,11 @@
 """
 Test SessionReconstructor high-level API.
 """
-import pytest
 import json
 import tempfile
 from pathlib import Path
-from agent_session_graph import SessionReconstructor, Session
+
+from agent_session_graph import Session, SessionReconstructor
 
 
 def test_session_reconstructor_from_spans():

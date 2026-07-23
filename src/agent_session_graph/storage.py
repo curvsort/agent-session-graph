@@ -6,8 +6,16 @@ The StorageBackend protocol allows pluggable persistence:
 - InMemoryStorage: Dict-backed storage for testing and exploration
 - Custom implementations: SQLite, PostgreSQL, cloud storage, etc.
 """
-from typing import Protocol, runtime_checkable
 from collections import defaultdict
+from typing import TYPE_CHECKING, Protocol, runtime_checkable
+
+if TYPE_CHECKING:
+    from agent_session_graph.schemas import (
+        ExecutionEdge,
+        Finding,
+        SessionEvent,
+        SessionMetadata,
+    )
 
 
 @runtime_checkable
@@ -202,14 +210,3 @@ class InMemoryStorage:
         self.metadata.clear()
         self.edges.clear()
         self.findings.clear()
-
-
-# Type stubs for forward references (actual imports happen in __init__.py)
-from typing import TYPE_CHECKING
-if TYPE_CHECKING:
-    from agent_session_graph.schemas import (
-        SessionEvent,
-        SessionMetadata,
-        ExecutionEdge,
-        Finding
-    )

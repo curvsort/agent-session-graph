@@ -7,8 +7,8 @@ Tests advanced session reconstruction features:
 - Profile/context transitions
 - Multi-session handling
 """
-import pytest
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timedelta, timezone
+
 from agent_session_graph import SessionReconstructor
 from agent_session_graph.schemas import EventType
 
@@ -171,7 +171,10 @@ def test_context_compaction_with_token_drop():
     session = reconstructor.from_otlp_spans(spans, session_id="compaction-metrics")
 
     # Verify compaction event
-    compaction_events = [e for e in session.timeline if e.event_type == EventType.CONTEXT_COMPACTION]
+    compaction_events = [
+        e for e in session.timeline
+        if e.event_type == EventType.CONTEXT_COMPACTION
+    ]
     assert len(compaction_events) == 1
 
     comp = compaction_events[0]

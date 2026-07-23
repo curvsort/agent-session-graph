@@ -1,14 +1,13 @@
 """
 Test schema models for serialization and validation.
 """
-import pytest
 from datetime import datetime, timezone
+
 from agent_session_graph.schemas import (
-    SessionEvent,
     EventType,
-    SessionMetadata,
     ExecutionEdge,
     Finding,
+    SessionEvent,
 )
 
 

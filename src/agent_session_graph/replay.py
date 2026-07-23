@@ -30,7 +30,7 @@ Example usage:
 from dataclasses import dataclass, field
 from typing import Any
 
-from agent_session_graph.schemas.session_event import SessionEvent, EventType
+from agent_session_graph.schemas.session_event import EventType, SessionEvent
 
 
 @dataclass
@@ -112,7 +112,11 @@ def apply_event(state: SessionState, event: SessionEvent) -> SessionState:
         current_participants=state.current_participants.copy(),
         current_cost_usd=state.current_cost_usd,
         current_token_usage=state.current_token_usage.copy(),
-        last_event_type=event.event_type.value if isinstance(event.event_type, EventType) else event.event_type,
+        last_event_type=(
+            event.event_type.value
+            if isinstance(event.event_type, EventType)
+            else event.event_type
+        ),
         last_seq=event.seq
     )
 
@@ -149,7 +153,10 @@ def apply_event(state: SessionState, event: SessionEvent) -> SessionState:
         # Track tool usage (could add tool_calls_count, etc.)
         pass
 
-    elif event.event_type in (EventType.MEMORY_WRITE, "MEMORY_WRITE", EventType.MEMORY_UPDATE, "MEMORY_UPDATE"):
+    elif event.event_type in (
+        EventType.MEMORY_WRITE, "MEMORY_WRITE",
+        EventType.MEMORY_UPDATE, "MEMORY_UPDATE",
+    ):
         # Track memory operations (could add memory_keys_written set, etc.)
         pass
 

@@ -8,19 +8,18 @@ and finalizes session metadata on completion.
 In production systems, this would be backed by Redis/Valkey for sub-ms reads.
 For development/testing, in-memory state works fine.
 """
-from datetime import datetime, timezone
 from typing import Optional
 
 from agent_session_graph.schemas import (
-    SessionEvent,
-    EventType,
-    SessionMetadata,
-    IngestionSource,
-    TokenUsage,
     DataIntegrity,
-    FindingSummary
+    EventType,
+    FindingSummary,
+    IngestionSource,
+    SessionEvent,
+    SessionMetadata,
+    TokenUsage,
 )
-from agent_session_graph.storage import StorageBackend, NullStorage
+from agent_session_graph.storage import NullStorage, StorageBackend
 
 
 class SessionBuilder:
